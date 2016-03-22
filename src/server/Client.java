@@ -13,12 +13,20 @@ public class Client implements Runnable{
 	private InetAddress ipAdress;
 	private double tara = 0;
 	private double brutto = 0;
+	private Thread thread;
 	
 	public Client(Socket s, BufferedReader i, DataOutputStream d){
 		socket = s;
 		inputStream = i;
 		outputStream = d;
 		ipAdress = s.getInetAddress();
+	}
+	
+	//should be a thread and that should be started
+	
+	public void startThread(){
+		thread = new Thread(this);
+		thread.start();
 	}
 	
 	@Override

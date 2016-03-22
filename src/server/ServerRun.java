@@ -38,7 +38,7 @@ public class ServerRun implements Runnable{
                  BufferedReader reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
                  DataOutputStream output = new DataOutputStream(sock.getOutputStream());
                  Client client = new Client(sock, reader, output);
-                 client.run();
+                 client.startThread();
                  clients.add(client);
                  System.out.println("Client connected with IP: "+sock.getLocalAddress().getHostAddress()+" and port: "+sock.getPort());
 			} catch (IOException e) {
