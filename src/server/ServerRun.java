@@ -12,13 +12,14 @@ public class ServerRun implements Runnable{
 
 	private ServerSocket serverSocket;
 	private boolean isRunning = true;
-	private static final int portNumber = 8000;
+	private static int portNumber = 8000;
 	private ArrayList<Client> clients;
 	private Thread thread;
 	
-	public ServerRun(){
+	public ServerRun(String port){
+		portNumber = Integer.parseInt(port);
 		try {
-			serverSocket = new ServerSocket(8000);
+			serverSocket = new ServerSocket(portNumber);
 			clients = new ArrayList<Client>();
 		} catch (IOException e) {
 			System.out.println("Could not start server, ending program.");
@@ -31,7 +32,7 @@ public class ServerRun implements Runnable{
 		thread.start();
 		while(isRunning){
             try {
-            	 System.out.println("Venter paa connection på port " + portNumber );
+            	 System.out.println("Venter paa connection pï¿½ port " + portNumber );
                  System.out.println("Indtast eventuel portnummer som 1. argument");
                  System.out.println("paa kommando linien for andet portnr");
                  Socket sock = serverSocket.accept();
@@ -40,7 +41,7 @@ public class ServerRun implements Runnable{
                  Client client = new Client(sock, reader, output);
                  client.startThread();
                  clients.add(client);
-                 System.out.println("Client connected with IP: "+sock.getLocalAddress().getHostAddress()+" and port: "+sock.getPort());
+                 System.out.println("Client connected with IP: "+sock.getLocalAddress().getHostAddress()+" and port: "+sock.getLocalPort());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

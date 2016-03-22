@@ -34,16 +34,16 @@ public class Client implements Runnable{
 		try{
 			String inline = "";
 			String indtDisp = "";
-            while (!(inline = inputStream.readLine().toUpperCase()).isEmpty()){ //her ventes på input
+            while (!(inline = inputStream.readLine().toUpperCase()).isEmpty()){ //her ventes pï¿½ input
             	if (inline.startsWith("RM")){						
-                	// ikke implimenteret
+                	// ikke implementeret
 
             	}
                 else if (inline.startsWith("D")){
                     if (inline.equals("DW"))
                         indtDisp="";
                     else
-                        indtDisp=(inline.substring(2, inline.length()));//her skal anførselstegn udm.
+                        indtDisp=(inline.substring(2, inline.length()));//her skal anfï¿½rselstegn udm.
                         outputStream.writeBytes("DB"+"\r\n");
                 }
                 else if (inline.startsWith("T")){
@@ -53,7 +53,7 @@ public class Client implements Runnable{
                 else if (inline.startsWith("S")){
                     outputStream.writeBytes("S S " + (brutto-tara)+ " kg "  +"\r\n");//HVOR MANGE SPACE?
                 }
-                else if (inline.startsWith("B")){ //denne ordre findes ikke på en fysisk vægt
+                else if (inline.startsWith("B")){ //denne ordre findes ikke pï¿½ en fysisk vï¿½gt
                     String temp= inline.substring(2,inline.length());
                     brutto = Double.parseDouble(temp);
                     outputStream.writeBytes("DB"+"\r\n");
@@ -69,6 +69,7 @@ public class Client implements Runnable{
                 }
                 
                 else { 
+                	System.out.println(inline);
                     outputStream.writeBytes("ES"+"\r\n");
                 }
             }
