@@ -55,10 +55,10 @@ public class ClientRun {
 //        System.out.println("Brutto: " + (brutto)+ " kg"                       );
 //        System.out.println("Streng modtaget: "+inline)                         ;
 //        System.out.println("                                                 ");
-        System.out.println("Denne v�gt simulator lytter p� ordrene           ");
-        System.out.println("S, T, D 'TEST', DW, RM20 8 .... , B og Q         ");
-        System.out.println("p� kommunikationsporten.                         ");
-        System.out.println("******")						     ;
+        System.out.println("Denne vægt simulator lytter på ordrene           ");
+        System.out.println("S, T, D, DW, RM20 8 .... , B og Q         ");
+        System.out.println("p�kommunikationsporten.                         ");
+        System.out.println("******");
         System.out.println("Tast T for tara (svarende til knaptryk paa vegt)") ;
         System.out.println("Tast B for ny brutto (svarende til at belastningen paa vegt �ndres)");
         System.out.println("Tast Q for at afslutte program program");
