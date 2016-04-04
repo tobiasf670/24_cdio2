@@ -17,6 +17,7 @@ public class ServerClientHandler {
 	private double brutto = 0;
 	private Scanner scanner;
 	private String indtDisp;
+	private String sekDisp;
 	
 	public ServerClientHandler(Socket s, BufferedReader i, DataOutputStream d, Scanner scanner){
 		socket = s;
@@ -31,36 +32,55 @@ public class ServerClientHandler {
 		try{
 			String inline = "";
 			indtDisp = "";
+			sekDisp = "";
 			printmenu();
-            while (!(inline = inputStream.readLine().toUpperCase()).isEmpty()){ //her ventes på input
-            	if (inline.startsWith("RM20 8")){						
-                	System.out.print("Type in console: ");
-                	String temp = scanner.nextLine();
-                	outputStream.writeBytes("RM20 A \""+temp+"\""+"\r\n");
-                	indtDisp = temp;
-                	
+            while (!(inline = inputStream.readLine().toUpperCase()).isEmpty()){
+            	//RM20 8 command expects a reponse
+            	if (inline.startsWith("RM20 8")){	
+            		try{
+            			System.out.println("RM20 Text: "+inline.split(" ")[2]);
+            			System.out.print("Type answer: ");
+            			String temp = scanner.nextLine();
+                    	outputStream.writeBytes("RM20 A \""+temp+"\""+"\r\n");
+            		} catch(Exception e){
+            			outputStream.writeBytes("RM20B\r\n");
+            		}
             	}
                 else if (inline.startsWith("D")){
+                	//DW command clears weight display
                     if (inline.equals("DW")){
                     	indtDisp="";
+                    	outputStream.writeBytes("DW A"+"\r\n");
                     }
+                    //D command skriver i vægtens display
                     else{
-                    	indtDisp=(inline.substring(2, inline.length()));//her skal anførselstegn udm.
+                    	indtDisp=(inline.substring(2, inline.length()));
+                    	outputStream.writeBytes("D A"+"\r\n");
                     }    
-                    outputStream.writeBytes("DB"+"\r\n");
+                    
                 }
+            	//T command takes current weight as tara
                 else if (inline.startsWith("T")){
-                    outputStream.writeBytes("T S " + (tara) + " kg "+"\r\n");		//HVOR MANGE SPACE?
+                    outputStream.writeBytes("T S      " + (tara) + " kg"+"\r\n");
                     tara=brutto;
                 }
+            	//S command sends stabile weighting
                 else if (inline.startsWith("S")){
-                    outputStream.writeBytes("S S      " + (brutto-tara)+ " kg"  +"\r\n");//HVOR MANGE SPACE?
+                    outputStream.writeBytes("S S      " + (brutto-tara)+ " kg"  +"\r\n");
                 }
-                else if (inline.startsWith("B")){ //denne ordre findes ikke p� en fysisk v�gt
+            	//B command sets virtual brutto weight
+                else if (inline.startsWith("B")){
                     String temp= inline.substring(2,inline.length());
                     brutto = Double.parseDouble(temp);
                     outputStream.writeBytes("DB"+"\r\n");
                 }
+            	//P111 command write in secondary display
+                else if(inline.startsWith("P111")){
+                	String temp = inline.substring(5, inline.length());
+                	sekDisp = temp;
+                	outputStream.writeBytes("P111 A\r\n");
+                }
+            	//Q command quits the application(in this case leaves weight for new one)
                 else if ((inline.startsWith("Q"))){
                 	System.out.println("Client closed!");
                     outputStream.close();
@@ -89,8 +109,13 @@ public class ServerClientHandler {
 			outputStream.writeBytes("Denne vægt simulator lytter på ordrene\r\n");
 			outputStream.writeBytes("S, T, D, DW, RM20 8 .... , B og Q\r\n");
 			outputStream.writeBytes("******\r\n");
-			outputStream.writeBytes("Brutto: "+(brutto)+" kg\r\n");
-			outputStream.writeBytes("Tekst: "+indtDisp+".\r\n");
+			if(indtDisp.isEmpty()){
+				outputStream.writeBytes("Brutto tekst: "+(brutto-tara)+" kg\r\n");
+			}
+			else{
+				outputStream.writeBytes("Primær tekst: "+indtDisp+".\r\n");
+			}
+			outputStream.writeBytes("Sekundær tekst: "+sekDisp+".\r\n");
 			outputStream.writeBytes("******\r\n");
 			outputStream.writeBytes("Tast T for tara (svarende til knaptryk på vægt)\r\n");
 			outputStream.writeBytes("Tast B for ny brutto (svarende til at belastningen på vægt ændres)\r\n");
