@@ -110,6 +110,7 @@ public class ServerClientHandler {
 			outputStream.writeBytes("S, T, D, DW, RM20 8 .... , B og Q\r\n");
 			outputStream.writeBytes("******\r\n");
 			if(indtDisp.isEmpty()){
+				outputStream.writeBytes("Netto tekst: "+(brutto-tara)+" kg\r\n");
 				outputStream.writeBytes("Brutto tekst: "+(brutto)+" kg\r\n");
 			}
 			else{
