@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client implements Runnable{
 
@@ -36,8 +37,10 @@ public class Client implements Runnable{
 			String indtDisp = "";
             while (!(inline = inputStream.readLine().toUpperCase()).isEmpty()){ //her ventes p� input
             	if (inline.startsWith("RM")){						
-                	// ikke implementeret
-
+                	indtDisp="INDTAST NR";
+                	System.out.print("Type in console: ");
+                	String temp = "temp replacement for scanner";
+                	outputStream.writeBytes("RM20 A \""+temp+"\""+"\r\n");
             	}
                 else if (inline.startsWith("D")){
                     if (inline.equals("DW"))
