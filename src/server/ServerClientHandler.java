@@ -66,7 +66,7 @@ public class ServerClientHandler {
                 }
             	//S command sends stabile weighting
                 else if (inline.startsWith("S")){
-                    outputStream.writeBytes("S S      " + (brutto-tara)+ " kg"  +"\r\n");
+                    outputStream.writeBytes("S S      " + (brutto)+ " kg"  +"\r\n");
                 }
             	//B command sets virtual brutto weight
                 else if (inline.startsWith("B")){
@@ -110,7 +110,7 @@ public class ServerClientHandler {
 			outputStream.writeBytes("S, T, D, DW, RM20 8 .... , B og Q\r\n");
 			outputStream.writeBytes("******\r\n");
 			if(indtDisp.isEmpty()){
-				outputStream.writeBytes("Brutto tekst: "+(brutto-tara)+" kg\r\n");
+				outputStream.writeBytes("Brutto tekst: "+(brutto)+" kg\r\n");
 			}
 			else{
 				outputStream.writeBytes("Primær tekst: "+indtDisp+".\r\n");

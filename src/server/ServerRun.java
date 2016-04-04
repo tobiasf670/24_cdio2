@@ -44,5 +44,11 @@ public class ServerRun{
 				e.printStackTrace();
 			}
 		}
+		scanner.close();
+		try {
+			serverSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
