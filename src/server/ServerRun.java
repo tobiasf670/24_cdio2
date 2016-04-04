@@ -17,8 +17,11 @@ public class ServerRun{
 	private ServerClientHandler client;
 	private Scanner scanner;
 	
+	
 	public ServerRun(String port){
 		portNumber = Integer.parseInt(port);
+	
+			
 		try {
 			serverSocket = new ServerSocket(portNumber);
 			scanner = new Scanner(System.in);
@@ -31,9 +34,9 @@ public class ServerRun{
 	public void start(){
 		while(isRunning){
             try {
-            	 System.out.println("Venter pÃ¥ connection pÃ¥ port " + portNumber );
+            	 System.out.println("Venter på connection på port " + portNumber );
                  System.out.println("Indtast eventuel portnummer som 1. argument");
-                 System.out.println("pÃ¥ kommando linien for andet portnr");
+                 System.out.println("på kommando linien for andet portnr");
                  Socket sock = serverSocket.accept();
                  BufferedReader reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
                  DataOutputStream output = new DataOutputStream(sock.getOutputStream());
@@ -45,4 +48,7 @@ public class ServerRun{
 			}
 		}
 	}
+
+
+	
 }

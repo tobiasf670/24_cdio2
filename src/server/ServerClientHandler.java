@@ -17,8 +17,10 @@ public class ServerClientHandler {
 	private double brutto = 0;
 	private Scanner scanner;
 	private String indtDisp;
+	private GUIController gc;
 	
 	public ServerClientHandler(Socket s, BufferedReader i, DataOutputStream d, Scanner scanner){
+		gc = new GUIController();
 		socket = s;
 		inputStream = i;
 		outputStream = d;
@@ -86,16 +88,16 @@ public class ServerClientHandler {
 			for (int i=0;i<2;i++)
 			outputStream.writeBytes("\r\n");
 			outputStream.writeBytes("*************************************************\r\n");
-			outputStream.writeBytes("Denne vÃ¦gt simulator lytter pÃ¥ ordrene\r\n");
+			outputStream.writeBytes("Denne vægtsimulator lytter på ordrene\r\n");
 			outputStream.writeBytes("S, T, D, DW, RM20 8 .... , B og Q\r\n");
 			outputStream.writeBytes("******\r\n");
-			outputStream.writeBytes("Brutto: "+(brutto)+" kg\r\n");
+			outputStream.writeBytes("Brutto: "+(gc.getServerGUI().getTxtKg().getText())+" kg\r\n");
 			outputStream.writeBytes("Tekst: "+indtDisp+".\r\n");
 			outputStream.writeBytes("******\r\n");
-			outputStream.writeBytes("Tast T for tara (svarende til knaptryk pÃ¥ vÃ¦gt)\r\n");
-			outputStream.writeBytes("Tast B for ny brutto (svarende til at belastningen pÃ¥ vÃ¦gt Ã¦ndres)\r\n");
+			outputStream.writeBytes("Tast T for tara (svarende til knaptryk på vægt)\r\n");
+			outputStream.writeBytes("Tast B for ny brutto (svarende til at belastningen på vægt ændres)\r\n");
 			outputStream.writeBytes("Tast Q for at afslutte program\r\n");
-			outputStream.writeBytes("Indtast (T/B/Q for knaptryk / brutto Ã¦ndring / quit)\r\n");
+			outputStream.writeBytes("Indtast (T/B/Q for knaptryk / brutto ændring / quit)\r\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
