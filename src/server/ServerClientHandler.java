@@ -13,12 +13,9 @@ public class ServerClientHandler {
 	private BufferedReader inputStream;
 	private DataOutputStream outputStream;
 	private InetAddress ipAdress;
-	private double tara = 0;
-	private double brutto = 0;
 	private Scanner scanner;
-	private String indtDisp;
 	private GUIController gc;
-	private String sekDisp;
+	WeightDTO weightData;
 	
 	public ServerClientHandler(Socket s, BufferedReader i, DataOutputStream d, Scanner scanner){
 		gc = new GUIController();
@@ -27,14 +24,15 @@ public class ServerClientHandler {
 		outputStream = d;
 		ipAdress = s.getInetAddress();
 		this.scanner = scanner;
+		weightData = new WeightDTO();
 	}
 	
 	//should be a thread and that should be started
 	public void run() {
 		try{
 			String inline = "";
-			indtDisp = "";
-			sekDisp = "";
+			weightData.setMainDisp("");
+			weightData.setSecDisp("");
 			printmenu();
             while (!(inline = inputStream.readLine().toUpperCase()).isEmpty()){
             	//RM20 8 command expects a reponse
@@ -51,35 +49,35 @@ public class ServerClientHandler {
                 else if (inline.startsWith("D")){
                 	//DW command clears weight display
                     if (inline.equals("DW")){
-                    	indtDisp="";
+                    	weightData.setMainDisp("");
                     	outputStream.writeBytes("DW A"+"\r\n");
                     }
-                    //D command skriver i vÃ¦gtens display
+                    //D command writes to the weight display
                     else{
-                    	indtDisp=(inline.substring(2, inline.length()));
+                    	weightData.setMainDisp((inline.substring(2, inline.length())));
                     	outputStream.writeBytes("D A"+"\r\n");
                     }    
                     
                 }
             	//T command takes current weight as tara
                 else if (inline.startsWith("T")){
-                    outputStream.writeBytes("T S      " + (tara) + " kg"+"\r\n");
-                    tara=brutto;
+                    outputStream.writeBytes("T S      " + (weightData.getTara()) + " kg"+"\r\n");
+                    weightData.setTara(weightData.getBrutto());
                 }
-            	//S command sends stabile weighting
+            	//S command sends stable/fixed measure           GG->stabile weighting ^^
                 else if (inline.startsWith("S")){
-                    outputStream.writeBytes("S S      " + (brutto-tara)+ " kg"  +"\r\n");
+                    outputStream.writeBytes("S S      " + (weightData.getBrutto()-weightData.getTara())+ " kg"  +"\r\n");
                 }
             	//B command sets virtual brutto weight
                 else if (inline.startsWith("B")){
                     String temp= inline.substring(2,inline.length());
-                    brutto = Double.parseDouble(temp);
+                    weightData.setBrutto(Double.parseDouble(temp));
                     outputStream.writeBytes("DB"+"\r\n");
                 }
             	//P111 command write in secondary display
                 else if(inline.startsWith("P111")){
                 	String temp = inline.substring(5, inline.length());
-                	sekDisp = temp;
+                	weightData.setSecDisp(temp);
                 	outputStream.writeBytes("P111 A\r\n");
                 }
             	//Q command quits the application(in this case leaves weight for new one)
@@ -108,27 +106,27 @@ public class ServerClientHandler {
 			for (int i=0;i<2;i++)
 			outputStream.writeBytes("\r\n");
 			outputStream.writeBytes("*************************************************\r\n");
-			outputStream.writeBytes("Denne vægtsimulator lytter på ordrene\r\n");
+			outputStream.writeBytes("Denne vï¿½gtsimulator lytter pï¿½ ordrene\r\n");
 			outputStream.writeBytes("S, T, D, DW, RM20 8 .... , B og Q\r\n");
 			outputStream.writeBytes("******\r\n");
 
 			outputStream.writeBytes("Brutto: "+(gc.getServerGUI().getTxtKg().getText())+" kg\r\n");
-			outputStream.writeBytes("Tekst: "+indtDisp+".\r\n");
+			outputStream.writeBytes("Tekst: "+weightData.getMainDisp()+".\r\n");
 
-			if(indtDisp.isEmpty()){
-				outputStream.writeBytes("Netto tekst: "+(brutto-tara)+" kg\r\n");
-				outputStream.writeBytes("Brutto tekst: "+(brutto)+" kg\r\n");
+			if(weightData.getMainDisp().isEmpty()){
+				outputStream.writeBytes("Netto tekst: "+(weightData.getBrutto()-weightData.getTara())+" kg\r\n");
+				outputStream.writeBytes("Brutto tekst: "+(weightData.getBrutto())+" kg\r\n");
 			}
 			else{
-				outputStream.writeBytes("PrimÃ¦r tekst: "+indtDisp+".\r\n");
+				outputStream.writeBytes("PrimÃ¦r tekst: "+weightData.getMainDisp()+".\r\n");
 			}
-			outputStream.writeBytes("SekundÃ¦r tekst: "+sekDisp+".\r\n");
+			outputStream.writeBytes("SekundÃ¦r tekst: "+weightData.getSecDisp()+".\r\n");
 
 			outputStream.writeBytes("******\r\n");
-			outputStream.writeBytes("Tast T for tara (svarende til knaptryk på vægt)\r\n");
-			outputStream.writeBytes("Tast B for ny brutto (svarende til at belastningen på vægt ændres)\r\n");
+			outputStream.writeBytes("Tast T for tara (svarende til knaptryk pï¿½ vï¿½gt)\r\n");
+			outputStream.writeBytes("Tast B for ny brutto (svarende til at belastningen pï¿½ vï¿½gt ï¿½ndres)\r\n");
 			outputStream.writeBytes("Tast Q for at afslutte program\r\n");
-			outputStream.writeBytes("Indtast (T/B/Q for knaptryk / brutto ændring / quit)\r\n");
+			outputStream.writeBytes("Indtast (T/B/Q for knaptryk / brutto ï¿½ndring / quit)\r\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

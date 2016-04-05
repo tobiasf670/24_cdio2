@@ -62,7 +62,7 @@ public class Simulator extends JFrame {
   txtKg.setColumns(10);
   
   txtVgtensTekst = new JTextField();
-  txtVgtensTekst.setText("vægtens tekst...");
+  txtVgtensTekst.setText("vï¿½gtens tekst...");
   txtVgtensTekst.setEditable(false);
   txtVgtensTekst.setColumns(10);
   txtVgtensTekst.setBounds(6, 46, 303, 40);
@@ -190,6 +190,7 @@ public class Simulator extends JFrame {
   button_0 = new JButton("0");
   button_0.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
+	   txtKg.append("0");
    }
   });
   button_0.setBounds(382, 162, 50, 50);
@@ -215,7 +216,7 @@ public class Simulator extends JFrame {
   spinner.setBounds(88, 162, 111, 50);
   contentPane.add(spinner);
   
-  JLabel lblBruttoVgt = new JLabel("Brutto vægt");
+  JLabel lblBruttoVgt = new JLabel("Brutto vï¿½gt");
   lblBruttoVgt.setFont(new Font("Lucida Grande", Font.BOLD, 13));
   lblBruttoVgt.setBounds(203, 174, 90, 16);
   contentPane.add(lblBruttoVgt);
