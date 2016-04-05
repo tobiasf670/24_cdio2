@@ -54,7 +54,7 @@ public class ServerClientHandler {
                     	indtDisp="";
                     	outputStream.writeBytes("DW A"+"\r\n");
                     }
-                    //D command skriver i v√¶gtens display
+                    //D command write text in weights display
                     else{
                     	indtDisp=(inline.substring(2, inline.length()));
                     	outputStream.writeBytes("D A"+"\r\n");
@@ -108,7 +108,7 @@ public class ServerClientHandler {
 			for (int i=0;i<2;i++)
 			outputStream.writeBytes("\r\n");
 			outputStream.writeBytes("*************************************************\r\n");
-			outputStream.writeBytes("Denne vÊgtsimulator lytter pÂ ordrene\r\n");
+			outputStream.writeBytes("Denne vÔøΩgtsimulator lytter pÔøΩ ordrene\r\n");
 			outputStream.writeBytes("S, T, D, DW, RM20 8 .... , B og Q\r\n");
 			outputStream.writeBytes("******\r\n");
 
@@ -125,10 +125,10 @@ public class ServerClientHandler {
 			outputStream.writeBytes("Sekund√¶r tekst: "+sekDisp+".\r\n");
 
 			outputStream.writeBytes("******\r\n");
-			outputStream.writeBytes("Tast T for tara (svarende til knaptryk pÂ vÊgt)\r\n");
-			outputStream.writeBytes("Tast B for ny brutto (svarende til at belastningen pÂ vÊgt Êndres)\r\n");
+			outputStream.writeBytes("Tast T for tara (svarende til knaptryk pÔøΩ vÔøΩgt)\r\n");
+			outputStream.writeBytes("Tast B for ny brutto (svarende til at belastningen pÔøΩ vÔøΩgt ÔøΩndres)\r\n");
 			outputStream.writeBytes("Tast Q for at afslutte program\r\n");
-			outputStream.writeBytes("Indtast (T/B/Q for knaptryk / brutto Êndring / quit)\r\n");
+			outputStream.writeBytes("Indtast (T/B/Q for knaptryk / brutto ÔøΩndring / quit)\r\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
