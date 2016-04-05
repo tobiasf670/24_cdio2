@@ -16,11 +16,13 @@ public class ServerRun{
 	private static int portNumber = 8000;
 	private ServerClientHandler client;
 	private Scanner scanner;
+	private GUIController gc;
+	private WeightDTO weight;
 	
-	
-	public ServerRun(String port){
+	public ServerRun(String port, GUIController gc, WeightDTO weight){
+		this.weight = weight;
 		portNumber = Integer.parseInt(port);
-	
+		this.gc = gc;
 			
 		try {
 			serverSocket = new ServerSocket(portNumber);
@@ -40,7 +42,7 @@ public class ServerRun{
                  Socket sock = serverSocket.accept();
                  BufferedReader reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
                  DataOutputStream output = new DataOutputStream(sock.getOutputStream());
-                 ServerClientHandler client = new ServerClientHandler(sock, reader, output, scanner);
+                 client = new ServerClientHandler(sock, reader, output, scanner, this.gc, this.weight);
                  System.out.println("Client connected with IP: "+sock.getLocalAddress().getHostAddress()+" and port: "+sock.getLocalPort());
                  client.run();
 			} catch (IOException e) {

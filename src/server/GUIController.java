@@ -5,18 +5,15 @@ public class GUIController {
 	
 	private Simulator serverGUI;
 	
-	public GUIController(){
+	
+	public GUIController(WeightDTO weight){
 		
-		serverGUI = new Simulator();
+		serverGUI = new Simulator(weight);
 		serverGUI.setVisible(true);
 	}
 
 	public Simulator getServerGUI() {
 		return serverGUI;
-	}
-
-	public void setServerGUI(Simulator serverGUI) {
-		this.serverGUI = serverGUI;
 	}
 	
 }

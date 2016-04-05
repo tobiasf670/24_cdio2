@@ -1,10 +1,12 @@
 package server;
 
 public class WeightDTO {
+	
 	private double tara = 0;
 	private double brutto = 0;
 	private String secDisp;
 	private String mainDisp;
+	
 	public double getTara() {
 		return tara;
 	}
@@ -15,6 +17,7 @@ public class WeightDTO {
 		return brutto;
 	}
 	public void setBrutto(double brutto) {
+		
 		this.brutto = brutto;
 	}
 	public String getSecDisp() {
