@@ -53,6 +53,10 @@ public class ServerClientHandler {
                     	outputStream.writeBytes("DW A"+"\r\n");
                     }
                     //D command writes to the weight display
+                    //D command write text in weights display
+                    //D command write text in weights display
+                    //D command write text in weights display
+                    //D command write text in weights display
                     else{
                     	weightData.setMainDisp((inline.substring(2, inline.length())));
                     	outputStream.writeBytes("D A"+"\r\n");
