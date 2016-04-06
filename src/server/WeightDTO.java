@@ -14,25 +14,29 @@ public class WeightDTO extends Observable{
 	}
 	public void setTara(double tara) {
 		this.tara = tara;
+		setChanged();
 	}
 	public double getBrutto() {
 		return brutto;
 	}
 	public void setBrutto(double brutto) {
-		
 		this.brutto = brutto;
+		setChanged();
 	}
 	public String getSecDisp() {
 		return secDisp;
 	}
 	public void setSecDisp(String secDisp) {
 		this.secDisp = secDisp;
+		setChanged();
 	}
 	public String getMainDisp() {
 		return mainDisp;
 	}
 	public void setMainDisp(String mainDisp) {
 		this.mainDisp = mainDisp;
+		setChanged();
+		notifyObservers("maindisp");
 	}
 
 }

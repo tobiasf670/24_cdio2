@@ -5,9 +5,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Scanner;
 
-public class ServerClientHandler {
+public class ServerClientHandler implements Observer{
 
 	private Socket socket;
 	private BufferedReader inputStream;
@@ -16,6 +18,7 @@ public class ServerClientHandler {
 	private Scanner scanner;
 	private GUIController gc;
 	private WeightDTO weightData;
+	private boolean dispDidChange = false;
 	
 	public ServerClientHandler(Socket s, BufferedReader i, DataOutputStream d, Scanner scanner, GUIController gc, WeightDTO weight){
 		this.gc = gc;
@@ -25,6 +28,7 @@ public class ServerClientHandler {
 		ipAdress = s.getInetAddress();
 		this.scanner = scanner;
 		this.weightData = weight;
+		weight.addObserver(this);
 	}
 	
 	//should be a thread and that should be started
@@ -41,6 +45,10 @@ public class ServerClientHandler {
             			//System.out.println("RM20 Text: "+inline.split(" ")[2]);
 //            			System.out.print("Type answer: ");
             			gc.getServerGUI().getMainDisp().setEditable(true);
+            			while(!dispDidChange){
+            				Thread.sleep(100);
+            			}
+            			dispDidChange = false;
             			
             		//	gc.getServerGUI().getBtnEnter().
             			
@@ -149,4 +157,11 @@ public class ServerClientHandler {
 			e.printStackTrace();
 		}
     }
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		if(o.equals("maindisp"))
+			dispDidChange = true;
+		
+	}
 }
