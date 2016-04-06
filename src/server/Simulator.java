@@ -62,7 +62,7 @@ public class Simulator extends JFrame {
   contentPane.setLayout(null);
   
   mainDisp = new JTextArea();
-  mainDisp.setText("kg: ");
+  mainDisp.setText("0.0");
   mainDisp.setEditable(false);
   mainDisp.setBounds(6, 6, 303, 40);
   contentPane.add(mainDisp);
@@ -193,10 +193,10 @@ public class Simulator extends JFrame {
   btnClear = new JButton("clear");
   btnClear.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
-	   mainDisp.setText("kg...");
+	   mainDisp.setText("0.0");
    }
   });
-  btnClear.setBounds(325, 162, 70, 50);
+  btnClear.setBounds(305, 162, 70, 50);
   contentPane.add(btnClear);
   
   button_0 = new JButton("0");
@@ -216,8 +216,13 @@ public class Simulator extends JFrame {
   btnEnter.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
 	   
-	   weight.setBrutto(Double.parseDouble(mainDisp.getText()));
-	   
+	   try {
+		   String current = mainDisp.getText();
+			   weight.setBrutto(Double.parseDouble(current));
+			   
+	} catch (NumberFormatException e2) {
+		weight.setMainDisp(mainDisp.getText());
+	}
    }
   });
   btnEnter.setBounds(430, 162, 70, 50);
@@ -226,10 +231,11 @@ public class Simulator extends JFrame {
   button_tara = new JButton("<T>");
   button_tara.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
+	   
 	  String newTara = mainDisp.getText();
 	  taraDisp.setText("Current Tara: ");
-	   taraDisp.append(newTara + " kg.");
-	   mainDisp.setText("kg: 0.0");
+	   taraDisp.append(newTara);
+	   mainDisp.setText("0.0");
 	   weight.setTara(Double.parseDouble(newTara));
 	   
 	  
@@ -278,5 +284,9 @@ public void setTara(WeightDTO weight, int i){
 
 public JTextArea getTaraDisp() {
 	return taraDisp;
+}
+
+public JButton getBtnEnter() {
+	return btnEnter;
 }
 }

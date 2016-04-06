@@ -1,6 +1,8 @@
 package server;
 
-public class WeightDTO {
+import java.util.Observable;
+
+public class WeightDTO extends Observable{
 	
 	private double tara = 0;
 	private double brutto = 0;
