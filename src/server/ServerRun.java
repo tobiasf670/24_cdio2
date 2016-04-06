@@ -43,6 +43,7 @@ public class ServerRun{
                  BufferedReader reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
                  DataOutputStream output = new DataOutputStream(sock.getOutputStream());
                  client = new ServerClientHandler(sock, reader, output, scanner, this.gc, this.weight);
+               
                  System.out.println("Client connected with IP: "+sock.getLocalAddress().getHostAddress()+" and port: "+sock.getLocalPort());
                  client.run();
 			} catch (IOException e) {

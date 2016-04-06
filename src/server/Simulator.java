@@ -17,6 +17,8 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.awt.event.ActionEvent;
@@ -62,9 +64,41 @@ public class Simulator extends JFrame {
   contentPane.setLayout(null);
   
   mainDisp = new JTextArea();
-  mainDisp.setText("0.0");
+  mainDisp.setText("0");
   mainDisp.setEditable(false);
   mainDisp.setBounds(6, 6, 303, 40);
+  mainDisp.addMouseListener(new MouseListener() {
+	
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+});
   contentPane.add(mainDisp);
   mainDisp.setColumns(10);
   
@@ -84,7 +118,7 @@ public class Simulator extends JFrame {
   button_1.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) 
    {
-	   if (mainDisp.getText().startsWith("kg")){
+	   if (mainDisp.getText().startsWith("0")){
 		   mainDisp.setText("");;
 	   }
     mainDisp.append("1");
@@ -96,7 +130,7 @@ public class Simulator extends JFrame {
   button_2 = new JButton("2");
   button_2.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
-	   if (mainDisp.getText().startsWith("kg")){
+	   if (mainDisp.getText().startsWith("0")){
 		   mainDisp.setText("");;
 	   }
     mainDisp.append("2");
@@ -108,7 +142,7 @@ public class Simulator extends JFrame {
   button_3 = new JButton("3");
   button_3.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
-	   if (mainDisp.getText().startsWith("kg")){
+	   if (mainDisp.getText().startsWith("0")){
 		   mainDisp.setText("");;
 	   }
     mainDisp.append("3");
@@ -120,7 +154,7 @@ public class Simulator extends JFrame {
   button_6 = new JButton("6");
   button_6.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
-	   if (mainDisp.getText().startsWith("kg")){
+	   if (mainDisp.getText().startsWith("0")){
 		   mainDisp.setText("");;
 	   }
     mainDisp.append("6");
@@ -132,7 +166,7 @@ public class Simulator extends JFrame {
   button_4 = new JButton("4");
   button_4.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
-	   if (mainDisp.getText().startsWith("kg")){
+	   if (mainDisp.getText().startsWith("0")){
 		   mainDisp.setText("");;
 	   }
     mainDisp.append("4");
@@ -144,7 +178,7 @@ public class Simulator extends JFrame {
   button_5 = new JButton("5");
   button_5.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
-	   if (mainDisp.getText().startsWith("kg")){
+	   if (mainDisp.getText().startsWith("0")){
 		   mainDisp.setText("");;
 	   }
     mainDisp.append("5");
@@ -156,7 +190,7 @@ public class Simulator extends JFrame {
   button_9 = new JButton("9");
   button_9.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
-	   if (mainDisp.getText().startsWith("kg")){
+	   if (mainDisp.getText().startsWith("0")){
 		   mainDisp.setText("");;
 	   }
     mainDisp.append("9");
@@ -169,7 +203,7 @@ public class Simulator extends JFrame {
   button_7.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) 
    {
-	   if (mainDisp.getText().startsWith("kg")){
+	   if (mainDisp.getText().startsWith("0")){
 		   mainDisp.setText("");;
 	   }
     mainDisp.append("7");
@@ -181,7 +215,7 @@ public class Simulator extends JFrame {
   button_8 = new JButton("8");
   button_8.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
-	   if (mainDisp.getText().startsWith("kg")){
+	   if (mainDisp.getText().startsWith("0")){
 		   mainDisp.setText("");;
 	   }
     mainDisp.append("8");
@@ -193,16 +227,19 @@ public class Simulator extends JFrame {
   btnClear = new JButton("clear");
   btnClear.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
-	   mainDisp.setText("0.0");
+	   weight.setBrutto(0);
+	   weight.setTara(0);
+	   mainDisp.setText("0");
+	   taraDisp.setText("Current Tara: ");
    }
   });
-  btnClear.setBounds(305, 162, 70, 50);
+  btnClear.setBounds(310, 162, 70, 50);
   contentPane.add(btnClear);
   
   button_0 = new JButton("0");
   button_0.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
-	   if (mainDisp.getText().startsWith("kg")){
+	   if (mainDisp.getText().startsWith("0")){
 		   mainDisp.setText("");;
 	   }
 	   mainDisp.append("0");
@@ -222,21 +259,30 @@ public class Simulator extends JFrame {
 			   
 	} catch (NumberFormatException e2) {
 		weight.setMainDisp(mainDisp.getText());
+		mainDisp.setText(weight.getBrutto() + "");
 	}
    }
   });
-  btnEnter.setBounds(430, 162, 70, 50);
+  btnEnter.setBounds(434, 162, 70, 50);
   contentPane.add(btnEnter);
   
   button_tara = new JButton("<T>");
   button_tara.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
 	   
-	  String newTara = mainDisp.getText();
-	  taraDisp.setText("Current Tara: ");
-	   taraDisp.append(newTara);
-	   mainDisp.setText("0.0");
-	   weight.setTara(Double.parseDouble(newTara));
+	   try{
+		   String newTara = mainDisp.getText();
+		   weight.setTara(Double.parseDouble(newTara));
+			  taraDisp.setText("Current Tara: ");
+			   taraDisp.append(newTara);
+			   mainDisp.setText("0");
+			   secDisp.setText(weight.getSecDisp());
+			   
+	   }
+	   catch (NumberFormatException exception){
+		   secDisp.setText("You need a number in order to tara");
+	   }
+	  
 	   
 	  
    }
@@ -257,7 +303,7 @@ public class Simulator extends JFrame {
 });;
   contentPane.add(spinner);
   
-  JLabel lblBruttoVgt = new JLabel("Brutto vægt");
+  JLabel lblBruttoVgt = new JLabel("Brutto vÃ¦gt");
   lblBruttoVgt.setFont(new Font("Lucida Grande", Font.BOLD, 13));
   lblBruttoVgt.setBounds(203, 174, 90, 16);
   contentPane.add(lblBruttoVgt);

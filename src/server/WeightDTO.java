@@ -6,8 +6,8 @@ public class WeightDTO extends Observable{
 	
 	private double tara = 0;
 	private double brutto = 0;
-	private String secDisp;
-	private String mainDisp;
+	private String secDisp = "";
+	private String mainDisp = "";
 	
 	public double getTara() {
 		return tara;
