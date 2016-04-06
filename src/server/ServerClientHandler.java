@@ -44,7 +44,8 @@ public class ServerClientHandler implements Observer{
             			//System.out.println("RM20 Text: "+inline.split(" ")[2]);
 //            			System.out.print("Type answer: ");
             			gc.getServerGUI().getMainDisp().setEditable(true);
-            			gc.getServerGUI().getSecDisp().setText((inline.substring(6, inline.length())));
+            			gc.getServerGUI().getMainDisp().setText("Type in your answer");
+            			gc.getServerGUI().getSecDisp().setText((inline.substring(7, inline.length())));
             			dispDidChange = false;
             			
             			while(!dispDidChange){
@@ -66,7 +67,7 @@ public class ServerClientHandler implements Observer{
                 else if (inline.startsWith("D")){
                 	//DW command clears weight display
                     if (inline.equals("DW")){
-                    	weightData.setMainDisp("0.0");
+                    	weightData.setMainDisp("0");
                     	this.gc.getServerGUI().getMainDisp().setText(weightData.getMainDisp());
                     	outputStream.writeBytes("DW A"+"\r\n");
                     }

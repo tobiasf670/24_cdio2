@@ -17,6 +17,8 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
@@ -43,6 +45,7 @@ public class Simulator extends JFrame {
  private JButton button_8;
  private JTextArea taraDisp;
  private WeightDTO weight;
+ private JLabel kiloLbl;
 
  /**
   * Launch the application.
@@ -66,52 +69,56 @@ public class Simulator extends JFrame {
   mainDisp = new JTextArea();
   mainDisp.setText("0");
   mainDisp.setEditable(false);
-  mainDisp.setBounds(6, 6, 303, 40);
+  mainDisp.setFont(new Font("Lucida Grande", Font.BOLD, 17));
+  mainDisp.setBounds(6, 6, 285, 40);
   mainDisp.addMouseListener(new MouseListener() {
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+		// TODO Auto-generated method stub		
+	}	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+		// TODO Auto-generated method stub		
+	}	
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+		// TODO Auto-generated method stub		
+	}	
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
+	
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if (mainDisp.getText().equals("Type in your answer")){
+			mainDisp.setText("");
+		}
 		
 	}
+	
 });
+
   contentPane.add(mainDisp);
   mainDisp.setColumns(10);
+  
+  kiloLbl = new JLabel("kg");
+  kiloLbl.setBounds(295, 6, 25, 40);
+  contentPane.add(kiloLbl);
+  
   
   secDisp = new JTextField();
   secDisp.setText("...");
   secDisp.setEditable(false);
   secDisp.setColumns(10);
-  secDisp.setBounds(6, 46, 303, 40);
+  secDisp.setBounds(6, 46, 285, 40);
   contentPane.add(secDisp);
   
   taraDisp = new JTextArea();
   taraDisp.setText("Current Tara: ");
-  taraDisp.setBounds(6, 86, 303, 40);
+  taraDisp.setBounds(6, 86, 285, 40);
   contentPane.add(taraDisp);
   
   button_1 = new JButton("1");
@@ -230,7 +237,9 @@ public class Simulator extends JFrame {
 	   weight.setBrutto(0);
 	   weight.setTara(0);
 	   mainDisp.setText("0");
+	   secDisp.setText("");
 	   taraDisp.setText("Current Tara: ");
+	   
    }
   });
   btnClear.setBounds(310, 162, 70, 50);
@@ -259,7 +268,7 @@ public class Simulator extends JFrame {
 			   
 	} catch (NumberFormatException e2) {
 		weight.setMainDisp(mainDisp.getText());
-		mainDisp.setText(weight.getBrutto() + "");
+		mainDisp.setText("0");
 	}
    }
   });
