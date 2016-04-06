@@ -11,11 +11,11 @@ public class ServerMain {
     	
     	
     	if(args.length>0){
-    		ServerRun serverRun = new ServerRun(args[0], gc, weightDTO);
-    		serverRun.start();
+    		ServerRun serverRun = new ServerRun(args[0]);
+    		serverRun.start(gc, weightDTO);
     	}else{
-    		ServerRun serverRun = new ServerRun("8000", gc, weightDTO);
-    		serverRun.start();
+    		ServerRun serverRun = new ServerRun("8000");
+    		serverRun.start(gc, weightDTO);
     	}
     }
 }

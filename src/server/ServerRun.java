@@ -16,13 +16,11 @@ public class ServerRun{
 	private static int portNumber = 8000;
 	private ServerClientHandler client;
 	private Scanner scanner;
-	private GUIController gc;
-	private WeightDTO weight;
+
 	
-	public ServerRun(String port, GUIController gc, WeightDTO weight){
-		this.weight = weight;
+	public ServerRun(String port){
+		
 		portNumber = Integer.parseInt(port);
-		this.gc = gc;
 			
 		try {
 			serverSocket = new ServerSocket(portNumber);
@@ -33,16 +31,16 @@ public class ServerRun{
 		}
 	}
 	
-	public void start(){
+	public void start(GUIController gc, WeightDTO weight){
 		while(isRunning){
             try {
-            	 System.out.println("Venter på connection på port " + portNumber );
+            	 System.out.println("Venter pï¿½ connection pï¿½ port " + portNumber );
                  System.out.println("Indtast eventuel portnummer som 1. argument");
-                 System.out.println("på kommando linien for andet portnr");
+                 System.out.println("pï¿½ kommando linien for andet portnr");
                  Socket sock = serverSocket.accept();
                  BufferedReader reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
                  DataOutputStream output = new DataOutputStream(sock.getOutputStream());
-                 client = new ServerClientHandler(sock, reader, output, scanner, this.gc, this.weight);
+                 client = new ServerClientHandler(sock, reader, output, scanner, gc, weight);
                
                  System.out.println("Client connected with IP: "+sock.getLocalAddress().getHostAddress()+" and port: "+sock.getLocalPort());
                  client.run();
