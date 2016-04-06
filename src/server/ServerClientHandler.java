@@ -40,8 +40,14 @@ public class ServerClientHandler {
             		try{
             			//System.out.println("RM20 Text: "+inline.split(" ")[2]);
 //            			System.out.print("Type answer: ");
-//            			String temp = scanner.nextLine();
+            			gc.getServerGUI().getMainDisp().setEditable(true);
+            			
+            		//	gc.getServerGUI().getBtnEnter().
+            			
                     	outputStream.writeBytes("RM20 A \""+weightData.getMainDisp()+"\""+"\r\n");
+                    	
+                    	gc.getServerGUI().getMainDisp().setEditable(false);
+                    	
             		} catch(Exception e){
             			outputStream.writeBytes("RM20B\r\n");
             		}
@@ -49,8 +55,8 @@ public class ServerClientHandler {
                 else if (inline.startsWith("D")){
                 	//DW command clears weight display
                     if (inline.equals("DW")){
-                    	weightData.setMainDisp("");
-                    	this.gc.getServerGUI().getMainDisp().setText("");
+                    	weightData.setMainDisp("0.0");
+                    	this.gc.getServerGUI().getMainDisp().setText(weightData.getMainDisp());
                     	outputStream.writeBytes("DW A"+"\r\n");
                     }
                     //D command writes to the weight display
@@ -60,6 +66,7 @@ public class ServerClientHandler {
                     //D command write text in weights display
                     else{
                     	weightData.setMainDisp((inline.substring(2, inline.length())));
+                    	this.gc.getServerGUI().getMainDisp().setText(weightData.getMainDisp());
                     	outputStream.writeBytes("D A"+"\r\n");
                     }    
                     

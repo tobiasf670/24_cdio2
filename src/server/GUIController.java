@@ -1,5 +1,7 @@
 package server;
 
+import javax.swing.JTextArea;
+
 public class GUIController {
 
 	
@@ -14,6 +16,10 @@ public class GUIController {
 
 	public Simulator getServerGUI() {
 		return serverGUI;
+	}
+	
+	public JTextArea getMainDisp(){
+		return this.serverGUI.getMainDisp();
 	}
 	
 }

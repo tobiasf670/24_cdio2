@@ -1,11 +1,14 @@
 package server;
 
-public class WeightDTO {
+import java.util.Observable;
+
+public class WeightDTO extends Observable {
 	
 	private double tara = 0;
 	private double brutto = 0;
 	private String secDisp;
 	private String mainDisp;
+	
 	
 	public double getTara() {
 		return tara;
@@ -32,5 +35,6 @@ public class WeightDTO {
 	public void setMainDisp(String mainDisp) {
 		this.mainDisp = mainDisp;
 	}
+	
 
 }
