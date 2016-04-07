@@ -257,7 +257,7 @@ public class Simulator extends JFrame {
   button_0.setBounds(382, 162, 50, 50);
   contentPane.add(button_0);
   
-  //We need this?
+  
   btnEnter = new JButton("enter");
   btnEnter.addActionListener(new ActionListener() {
    public void actionPerformed(ActionEvent e) {
@@ -265,6 +265,7 @@ public class Simulator extends JFrame {
 	   try {
 		   String current = mainDisp.getText();
 			   weight.setBrutto(Double.parseDouble(current));
+			   weight.setMainDisp(mainDisp.getText());
 			   
 	} catch (NumberFormatException e2) {
 		weight.setMainDisp(mainDisp.getText());

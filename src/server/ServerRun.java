@@ -36,7 +36,7 @@ public class ServerRun{
             try {
             	 System.out.println("Venter p� connection p� port " + portNumber );
                  System.out.println("Indtast eventuel portnummer som 1. argument");
-                 System.out.println("p� kommando linien for andet portnr");
+                 System.out.println("på kommando linien for andet portnr");
                  Socket sock = serverSocket.accept();
                  BufferedReader reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
                  DataOutputStream output = new DataOutputStream(sock.getOutputStream());

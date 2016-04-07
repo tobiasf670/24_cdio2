@@ -52,13 +52,11 @@ public class ServerClientHandler implements Observer{
             				Thread.sleep(500);
             				
             			}
-            			
-            			
-            		//	gc.getServerGUI().getBtnEnter().
-            			
+      			
                     	outputStream.writeBytes("RM20 A "+weightData.getMainDisp()+""+"\r\n");
                     	
                     	gc.getServerGUI().getMainDisp().setEditable(false);
+                    	gc.getServerGUI().getMainDisp().setText("0");
                     	
             		} catch(Exception e){
             			outputStream.writeBytes("RM20B\r\n");
