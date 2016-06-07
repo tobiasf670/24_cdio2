@@ -52,14 +52,14 @@ public class ServerClientHandler implements Observer{
             				Thread.sleep(500);
             				
             			}
-      			
-                    	outputStream.writeBytes("RM20 A "+weightData.getMainDisp()+""+"\r\n");
+            			outputStream.writeBytes("RM20 B\r\n");
+                    	outputStream.writeBytes("RM20 A \""+weightData.getMainDisp()+"\""+"\r\n");
                     	
                     	gc.getServerGUI().getMainDisp().setEditable(false);
                     	gc.getServerGUI().getMainDisp().setText("0");
                     	
             		} catch(Exception e){
-            			outputStream.writeBytes("RM20B\r\n");
+            			outputStream.writeBytes("RM20 B\r\n");
             		}
             	}
                 else if (inline.startsWith("D")){
@@ -69,10 +69,7 @@ public class ServerClientHandler implements Observer{
                     	this.gc.getServerGUI().getMainDisp().setText(weightData.getMainDisp());
                     	outputStream.writeBytes("DW A"+"\r\n");
                     }
-                    //D command writes to the weight display
-                    //D command write text in weights display
-                    //D command write text in weights display
-                    //D command write text in weights display
+
                     //D command write text in weights display
                     else{
                     	if (inline.length() > 1){
@@ -90,7 +87,7 @@ public class ServerClientHandler implements Observer{
                     this.gc.getServerGUI().getMainDisp().setText("0");
                 }
             	//S command sends stable/fixed measure           GG->stabile weighting ^^
-                else if (inline.startsWith("S")){
+                else if (inline.equals("S")){
                     outputStream.writeBytes("S S      " + (weightData.getBrutto()-weightData.getTara())+ " kg"  +"\r\n");
                 }
             	//B command sets virtual brutto weight
@@ -116,8 +113,20 @@ public class ServerClientHandler implements Observer{
                     this.gc.getServerGUI().getMainDisp().setText("Connection Terminated");
           
                     break;
+                } else if((inline.startsWith("ST"))){
+                	if(inline.startsWith("ST 1")){
+                		outputStream.writeBytes("ST A\r\n");
+                		dispDidChange = false;
+                		while(!dispDidChange){
+            				Thread.sleep(500);
+            			}
+                		outputStream.writeBytes("S S    "+(weightData.getBrutto()-weightData.getTara())+" g\r\n");
+                	}
+                	else{
+                		outputStream.writeBytes("ST A\r\n");
+                	}
+                	
                 }
-                
                 else { 
                 	//System.out.println(inline);
                     outputStream.writeBytes("ES"+"\r\n");
@@ -131,12 +140,12 @@ public class ServerClientHandler implements Observer{
 	}
 	
 	public void printmenu(){
-		try {
+		/*try {
 			for (int i=0;i<2;i++)
 			outputStream.writeBytes("\r\n");
 			outputStream.writeBytes("*************************************************\r\n");
-			outputStream.writeBytes("Denne vï¿½gtsimulator lytter pï¿½ ordrene\r\n");
-			outputStream.writeBytes("S, T, D, DW, RM20 8 .... , B og Q\r\n");
+			outputStream.writeBytes("Denne vægtsimulator lytter på ordrene\r\n");
+			outputStream.writeBytes("S, T, D, DW, RM20 8 .... , B, Q og P111\r\n");
 			outputStream.writeBytes("******\r\n");
 
 			outputStream.writeBytes("Brutto: "+weightData.getBrutto()+" kg\r\n");
@@ -152,20 +161,18 @@ public class ServerClientHandler implements Observer{
 			outputStream.writeBytes("Sekundï¿½r tekst: "+weightData.getSecDisp()+".\r\n");
 
 			outputStream.writeBytes("******\r\n");
-			outputStream.writeBytes("Tast T for tara (svarende til knaptryk pï¿½ vï¿½gt)\r\n");
-			outputStream.writeBytes("Tast B for ny brutto (svarende til at belastningen pï¿½ vï¿½gt ï¿½ndres)\r\n");
+			outputStream.writeBytes("Tast T for tara (svarende til knaptryk på vægt)\r\n");
+			outputStream.writeBytes("Tast B for ny brutto (svarende til at belastningen på vægt ændres)\r\n");
 			outputStream.writeBytes("Tast Q for at afslutte program\r\n");
-			outputStream.writeBytes("Indtast (T/B/Q for knaptryk / brutto ï¿½ndring / quit)\r\n");
+			outputStream.writeBytes("Indtast (T/B/Q for knaptryk / brutto ændring / quit)\r\n");
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
     }
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		
 		if(arg.equals("maindisp")){
-			System.out.println(1);
 			dispDidChange = true;
 		}
 	}
