@@ -45,7 +45,7 @@ public class ServerClientHandler implements Observer{
 //            			System.out.print("Type answer: ");
             			gc.getServerGUI().getMainDisp().setEditable(true);
             			gc.getServerGUI().getMainDisp().setText("Type in your answer");
-            			gc.getServerGUI().getSecDisp().setText((inline.substring(7, inline.length())));
+            			gc.getServerGUI().getSecDisp().setText((inline.substring(8, inline.length()-9)));
             			dispDidChange = false;
             			
             			while(!dispDidChange){
@@ -81,8 +81,8 @@ public class ServerClientHandler implements Observer{
                 }
             	//T command takes current weight as tara
                 else if (inline.startsWith("T")){
-                    outputStream.writeBytes("T S      " + (weightData.getTara()) + " kg"+"\r\n");
                     weightData.setTara(weightData.getBrutto());
+                    outputStream.writeBytes("T S      " + (weightData.getTara()) + " kg"+"\r\n");
                     this.gc.getServerGUI().getTaraDisp().setText("Current Tara: " + weightData.getTara());
                     this.gc.getServerGUI().getMainDisp().setText("0");
                 }
@@ -120,7 +120,7 @@ public class ServerClientHandler implements Observer{
                 		while(!dispDidChange){
             				Thread.sleep(500);
             			}
-                		outputStream.writeBytes("S S    "+(weightData.getBrutto()-weightData.getTara())+" g\r\n");
+                		outputStream.writeBytes("S S    "+(weightData.getBrutto()-weightData.getTara())+" kg\r\n");
                 	}
                 	else{
                 		outputStream.writeBytes("ST A\r\n");

@@ -40,6 +40,7 @@ public class Simulator extends JFrame {
 	private JButton button_7;
 	private JButton btnClear;
 	private JButton button_9;
+	private JButton button_comma;
 	private JButton btnEnter;
 	private JButton button_tara;
 	private JButton button_8;
@@ -117,7 +118,7 @@ public class Simulator extends JFrame {
 		contentPane.add(secDisp);
 
 		taraDisp = new JTextArea();
-		taraDisp.setText("Current Tara: ");
+		taraDisp.setText("");
 		taraDisp.setBounds(6, 86, 285, 40);
 		contentPane.add(taraDisp);
 
@@ -249,20 +250,32 @@ public class Simulator extends JFrame {
 
 			}
 		});
-		btnClear.setBounds(310, 162, 70, 50);
+		btnClear.setBounds(285, 162, 70, 50);
 		contentPane.add(btnClear);
-
+		
+		button_comma = new JButton(".");
+		button_comma.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (mainDisp.getText().startsWith("0")) {
+					mainDisp.setText("");
+				}
+				mainDisp.append(".");
+			}
+		});
+		button_comma.setBounds(409, 162, 50, 50);
+		contentPane.add(button_comma);
+		
 		button_0 = new JButton("0");
 		button_0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (mainDisp.getText().startsWith("0")) {
 					mainDisp.setText("");
-					;
 				}
 				mainDisp.append("0");
 			}
 		});
-		button_0.setBounds(382, 162, 50, 50);
+		button_0.setBounds(357, 162, 50, 50);
 		contentPane.add(button_0);
 
 		btnEnter = new JButton("enter");
@@ -279,7 +292,7 @@ public class Simulator extends JFrame {
 				}
 			}
 		});
-		btnEnter.setBounds(434, 162, 70, 50);
+		btnEnter.setBounds(461, 162, 70, 50);
 		contentPane.add(btnEnter);
 
 		button_tara = new JButton("<T>");
