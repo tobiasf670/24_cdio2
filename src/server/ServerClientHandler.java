@@ -99,7 +99,7 @@ public class ServerClientHandler implements Observer{
                 }
             	//P111 command write in secondary display
                 else if(inline.startsWith("P111")){
-                	String temp = inline.substring(5, inline.length());
+                	String temp = inline.substring(6, inline.length()-1);
                 	weightData.setSecDisp(temp);
                 	this.gc.getServerGUI().getSecDisp().setText(temp);
                 	outputStream.writeBytes("P111 A\r\n");
